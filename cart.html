@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cart | Hyderabad Meat Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Sora:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"></head><body>
+<nav><a class="logo" href="index.html">Hyderabad <b>Meat</b> Hub</a><div class="links"><a href="index.html">Home</a><a href="our-meat.html">Our Meat</a><a href="quality.html">Quality</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div class="nr"><a class="ic" href="cart.html" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.5 11h10L20 7H6.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg><span id="count">0</span></a><a class="pill" href="our-meat.html">Shop Now</a></div></nav>
+<main><div class="ph"><h1 class="big">Your <span>Cart</span></h1></div><div id="cartbox"></div></main>
+<footer><div class="fg">
+<div><div class="logo" style="font-size:18px;margin-bottom:16px">Hyderabad <b>Meat</b> Hub</div><p style="max-width:340px;opacity:.7">Exceptional cuts. Freshly prepared. Delivered across Hyderabad.</p></div>
+<div><h4>Shop</h4><a href="our-meat.html">Our Meat</a><a href="cart.html">Cart</a></div>
+<div><h4>Company</h4><a href="about.html">About</a><a href="quality.html">Quality</a><a href="contact.html">Contact</a></div>
+<div><h4>Contact</h4><p>Hyderabad, Telangana</p><a id="fwa" href="#"></a></div></div>
+<div class="fb">© 2026 Hyderabad Meat Hub. All rights reserved.</div></footer>
+<script src="assets/site.js"></script>
+<script>{const a=document.getElementById("fwa");a.href="https://wa.me/"+HMH_CONFIG.whatsapp;a.textContent="WhatsApp: "+HMH_CONFIG.display}</script>
+<script>
+function draw(){const it=HMH.items(),box=document.getElementById("cartbox");
+if(!it.length){box.innerHTML='<div class="box empty"><p>Your cart is empty.</p><a class="pill" href="our-meat.html">Browse our meat</a></div>';HMH.badge();return}
+box.innerHTML='<div class="box">'+it.map(({p,q})=>`<div class="row"><div class="th">${HMH.img(p)}</div><div class="nm">${p.name}<small>${inr(p.price)}/kg</small></div><div class="qty"><button data-a="-" data-id="${p.id}">−</button><span>${q} kg</span><button data-a="+" data-id="${p.id}">+</button></div><div class="lt">${inr(p.price*q)}</div><button class="rm" data-a="x" data-id="${p.id}" aria-label="Remove">×</button></div>`).join("")+
+`<div class="tot"><span>Total</span><em>${inr(HMH.total())}</em></div><p class="note">Delivery charges (if any) are confirmed on WhatsApp.</p><a class="btn" href="checkout.html">Checkout</a></div>`;HMH.badge()}
+document.getElementById("cartbox").addEventListener("click",e=>{const b=e.target.closest("button[data-a]");if(!b)return;const id=+b.dataset.id,q=HMH.get()[id]||0;
+if(b.dataset.a=="+")HMH.set(id,q+.5);else if(b.dataset.a=="-")HMH.set(id,q-.5);else HMH.set(id,0);draw()});draw();</script></body></html>
