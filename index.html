@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hyderabad Meat Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Sora:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Sora:wght@800&family=Anton&display=swap" rel="stylesheet">
 <style>
 :root{--cut:url(hero-cutout.png);--red:#D71920;--dred:#850B12;--white:#fff;--black:#101010;--gray:#F0F0F0;
 --img:url(hero.jpg);--bg:#A0001A;--ink:#fff;--mx:50%;--my:50%;
@@ -67,18 +67,18 @@ nav a:hover{opacity:1;color:var(--red)}
 .cur.big2 span{opacity:1}
 .cur{transition:width .3s,height .3s,margin .3s}
 @media(pointer:coarse){.cur,.xline,.yline{display:none}}
-/* intro: Charminar preloader */
-.intro{position:fixed;inset:0;z-index:200;pointer-events:none}
-.ih{position:absolute;inset:0;background:#0d0d0d;will-change:transform;overflow:hidden}
-.ih.l{clip-path:inset(0 50% 0 0)}.ih.r{clip-path:inset(0 0 0 50%)}
-.ih::after{content:'';position:absolute;top:0;bottom:0;width:10vw;opacity:var(--sh,0);pointer-events:none}
-.ih.l::after{right:50%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.5))}
-.ih.r::after{left:50%;background:linear-gradient(270deg,transparent,rgba(0,0,0,.5))}
-.stg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4vh;will-change:transform}
-.ol{position:absolute;left:50%;top:50%;width:min(92vh,98vw);height:auto;transform:translate(-50%,-50%);overflow:visible}
-.itx{--a:-8deg;position:relative;height:auto;overflow:visible;-webkit-mask-image:conic-gradient(from 0deg at 50% 50%,#000 var(--a),transparent calc(var(--a) + 8deg));mask-image:conic-gradient(from 0deg at 50% 50%,#000 var(--a),transparent calc(var(--a) + 8deg))}
-.wide .itx{width:min(94vw,1600px)}.tall .itx{width:min(92vw,76vh)}
-.itag{position:relative;font-family:'Space Grotesk',system-ui,sans-serif;font-weight:500;font-size:clamp(10px,1.3vw,16px);letter-spacing:.6em;text-transform:uppercase;color:rgba(255,255,255,.7);padding-left:.6em;opacity:0}
+/* intro: curtain + landmarks-in-text */
+.intro{position:fixed;inset:0;z-index:200;background:#efe6d6;pointer-events:none;overflow:hidden}
+.stg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;will-change:transform}
+.stg::before{content:'';position:absolute;inset:2.6vh 2.6vw;border:1px solid rgba(122,31,43,.32);pointer-events:none}
+.itx{height:auto;overflow:visible;will-change:transform,clip-path}
+.wide .itx{width:min(94vw,1600px)}.tall .itx{width:min(92vw,74vh)}
+.tall .itag{max-width:88vw;letter-spacing:.3em;line-height:1.9;padding-left:.3em}
+.itag{font-family:'Space Grotesk',system-ui,sans-serif;font-weight:500;font-size:clamp(9px,1.05vw,14px);letter-spacing:.5em;text-transform:uppercase;color:#7a1f2b;padding-left:.5em;text-align:center;opacity:0}
+.cu{position:absolute;top:0;bottom:0;width:50.4%;z-index:2;will-change:transform;background:repeating-linear-gradient(90deg,#4a0711 0,#7d1220 2.4vw,#a81c30 4.4vw,#7d1220 6.4vw,#4a0711 8.8vw)}
+.cu::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5),transparent 22%,transparent 78%,rgba(0,0,0,.4))}
+.cu.l{left:0;transform-origin:0 50%;box-shadow:14px 0 40px rgba(0,0,0,.45)}.cu.r{right:0;transform-origin:100% 50%;box-shadow:-14px 0 40px rgba(0,0,0,.45)}
+.rod{position:absolute;top:0;left:0;right:0;height:16px;z-index:3;background:linear-gradient(#f9e6a8,#c39a3a 55%,#6e4f12);box-shadow:0 6px 14px rgba(0,0,0,.4)}
 .prods{background:#fff;padding:12vh 4vw 14vh}
 .ph{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
 .ph h2{font-size:clamp(44px,8vw,128px)}.ph h2 span{color:var(--red)}
@@ -122,33 +122,7 @@ footer:hover .fl{color:var(--dred)}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
-<div class="intro" id="intro"></div>
-<script>
-(function(){
-const el=document.getElementById('intro'),tall=innerWidth/innerHeight<.85,VB=tall?[1000,1000]:[1600,300];
-el.className='intro '+(tall?'tall':'wide');
-let s=11;const rnd=()=>(s=s*16807%2147483647)/2147483647;
-const hs=[262,282,305,330,350,12,28,44,196,214];
-let SH='';
-for(let i=0,n=tall?230:170;i<n;i++){
- const x=rnd()*(VB[0]+160)-80,y=rnd()*(VB[1]+80)-40,r=26+rnd()*(tall?110:70),k=3+(rnd()>.5?1:0),a0=rnd()*6.28,
- dark=Math.abs(x-VB[0]/2)<(tall?330:240),h=hs[(rnd()*hs.length)|0],l=dark?20+rnd()*20:44+rnd()*18,sa=82+rnd()*16;
- let p='';for(let j=0;j<k;j++){const a=a0+j*6.283/k+rnd()*.7,rr=r*(.6+rnd()*.5);p+=(j?'L':'M')+(x+Math.cos(a)*rr).toFixed(0)+' '+(y+Math.sin(a)*rr).toFixed(0)}
- SH+='<path d="'+p+'Z" fill="hsl('+h+' '+sa+'% '+l+'%)" opacity="'+(.82+rnd()*.18).toFixed(2)+'"/>'}
-/* Charminar in a 400x400 box */
-const mn=c=>`M${c-16} 400V104H${c+16}V400Z M${c-25} 232h50v10h-50z M${c-25} 164h50v10h-50z M${c-23} 94h46v10h-46z M${c-18} 94C${c-27} 62 ${c-12} 48 ${c} 40C${c+12} 48 ${c+27} 62 ${c+18} 94Z M${c-3} 40V20h6v20z M${c-5} 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0Z `;
-const dm=(x,b,w,h)=>`M${x-w} ${b}C${x-w} ${b-h*.45} ${x-w*.45} ${b-h*.8} ${x} ${b-h}C${x+w*.45} ${b-h*.8} ${x+w} ${b-h*.45} ${x+w} ${b}Z `;
-let body='M56 400V190H344V400Z M70 190V132H330V190Z '+mn(48)+mn(352)+dm(200,132,22,52)+'M197 80V62h6v18z '+dm(128,132,15,30)+dm(272,132,15,30);
-for(let x=86;x<=314;x+=24)body+=`M${x-5} 132L${x} 119L${x+5} 132Z `;
-let ar='M170 400V292Q170 242 200 222Q230 242 230 292V400Z M102 400V318Q102 282 121 266Q140 282 140 318V400Z M260 400V318Q260 282 279 266Q298 282 298 318V400Z ';
-[110,155,200,245,290].forEach(c=>ar+=`M${c-12} 188V162Q${c-12} 147 ${c} 140Q${c+12} 147 ${c+12} 162V188Z `);
-const T=tall?'translate(200 330) scale(1.5)':'translate(656 -3) scale(.72)';
-const rows=tall?[['HYD',290],['ERA',600],['BAD',910]]:[['HYDERABAD',262]],fs=tall?380:360,tl=tall?940:1585,x0=(VB[0]-tl)/2;
-const txt=rows.map(r=>`<text x="${x0}" y="${r[1]}" textLength="${tl}" lengthAdjust="spacingAndGlyphs" style="font:800 ${fs}px Sora,'Space Grotesk',Impact,sans-serif">${r[0]}</text>`).join('');
-const art=k=>`<div class="stg"><svg class="ol" viewBox="0 0 400 400"><path d="${body}${ar}" pathLength="1" fill="none" stroke="#f5c04a" stroke-opacity=".55" stroke-width="1.3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:1"/></svg><svg class="itx" viewBox="0 0 ${VB[0]} ${VB[1]}"><defs><clipPath id="cp${k}">${txt}</clipPath><linearGradient id="bg${k}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2b2fd8"/><stop offset=".22" stop-color="#8e24aa"/><stop offset=".42" stop-color="#3d0f63"/><stop offset=".58" stop-color="#3d0f63"/><stop offset=".78" stop-color="#e53935"/><stop offset="1" stop-color="#ff9800"/></linearGradient><linearGradient id="gc${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset="1" stop-color="#f2a93b"/></linearGradient></defs><g clip-path="url(#cp${k})"><rect x="-100" width="${VB[0]+200}" height="${VB[1]}" fill="url(#bg${k})"/><g class="shg">${SH}</g><g transform="${T}" stroke="#2a0740" stroke-width="2" stroke-linejoin="round"><path d="${body}" fill="url(#gc${k})"/><path d="${ar}" fill="#4a1259" stroke="none"/></g></g></svg><div class="itag">City of Pearls</div></div>`;
-el.innerHTML='<div class="ih l">'+art('L')+'</div><div class="ih r">'+art('R')+'</div>';
-})();
-</script>
+<div class="intro" id="intro"><div class="stg" id="stg"></div><div class="cu l"></div><div class="cu r"></div><div class="rod"></div></div>
 <header class="hero" id="hero">
  <div class="spot"></div>
  <nav>
@@ -245,16 +219,56 @@ function tick(){
  const cu=$('#cur');px=lerp(px,cx,.2);py=lerp(py,cy,.2);cu.style.transform=`translate(${px}px,${py}px)`;
  requestAnimationFrame(tick)
 }
+function buildIntro(){
+ const st=$('#stg'),tall=innerWidth/innerHeight<.85,VB=tall?[1000,1000]:[1600,300];
+ $('#intro').classList.add(tall?'tall':'wide');
+ let sd=5;const rnd=()=>(sd=sd*16807%2147483647)/2147483647;
+ const cx=document.createElement('canvas').getContext('2d');cx.font='400 100px Anton,Impact,sans-serif';
+ const cap=Math.max(.5,cx.measureText('H').actualBoundingBoxAscent/100)||.8;
+ const rows=tall?[['HYD',292],['ERA',610],['BAD',928]]:[['HYDERABAD',278]],fs=(tall?285:262)/cap,tl=tall?950:1585,x0=(VB[0]-tl)/2;
+ const txt=rows.map(r=>`<text x="${x0}" y="${r[1]}" textLength="${tl}" lengthAdjust="spacingAndGlyphs" style="font:400 ${fs.toFixed(1)}px Anton,Impact,sans-serif">${r[0]}</text>`).join('');
+ const cr=(x0,x1,y,w,h)=>{let d='';for(let x=x0;x+w<=x1;x+=w*2)d+=`M${x} ${y}h${w}v${-h}h${-w}z`;return d};
+ const dm=(x,b,w,h)=>`M${x-w} ${b}C${x-w} ${b-h*.45} ${x-w*.45} ${b-h*.8} ${x} ${b-h}C${x+w*.45} ${b-h*.8} ${x+w} ${b-h*.45} ${x+w} ${b}Z `;
+ const mn=c=>`M${c-16} 400V104H${c+16}V400Z M${c-25} 232h50v10h-50z M${c-25} 164h50v10h-50z M${c-23} 94h46v10h-46z M${c-18} 94C${c-27} 62 ${c-12} 48 ${c} 40C${c+12} 48 ${c+27} 62 ${c+18} 94Z M${c-3} 40V20h6v20z `;
+ let ch='M56 400V190H344V400Z M70 190V132H330V190Z '+mn(48)+mn(352)+dm(200,132,22,52)+'M197 80V62h6v18z '+dm(128,132,15,30)+dm(272,132,15,30);
+ for(let x=86;x<=314;x+=24)ch+=`M${x-5} 132L${x} 119L${x+5} 132Z `;
+ let ca='M170 400V292Q170 242 200 222Q230 242 230 292V400Z M102 400V318Q102 282 121 266Q140 282 140 318V400Z M260 400V318Q260 282 279 266Q298 282 298 318V400Z ';
+ [110,155,200,245,290].forEach(c=>ca+=`M${c-12} 188V162Q${c-12} 147 ${c} 140Q${c+12} 147 ${c+12} 162V188Z `);
+ const bird=(x,y)=>`M${x} ${y}q7 -7 14 0q7 -7 14 0`;
+ let mm=dm(1030,188,11,20)+dm(1064,188,11,20)+dm(1098,188,11,20)+dm(1132,188,11,20)+dm(1166,188,11,20)+dm(1200,188,11,20),ma='';
+ [1042,1112,1182].forEach(c=>ma+=`M${c-20} 262V224Q${c-20} 204 ${c} 194Q${c+20} 204 ${c+20} 224V262Z `);
+ const minar=c=>`<rect x="${c-7}" y="118" width="14" height="144"/><rect x="${c-12}" y="160" width="24" height="6"/><rect x="${c-12}" y="132" width="24" height="6"/><path d="${dm(c,118,9,20)}"/><rect x="${c-1.5}" y="86" width="3" height="14"/>`;
+ let pa='';[1334,1372,1410,1460,1498,1536].forEach(c=>pa+=`M${c-9} 262V238Q${c-9} 228 ${c} 224Q${c+9} 228 ${c+9} 238V262Z `);
+ let rf='';for(let i=0;i<46;i++){const y=270+i*(tall?24:7),x=rnd()*1500,w=40+rnd()*160;rf+=`M${x.toFixed(0)} ${y}h${w.toFixed(0)}`}
+ const scene=`<rect x="-800" y="-1500" width="3200" height="1762" fill="url(#sk)"/><circle cx="690" cy="168" r="72" fill="#ffe7a8" opacity=".92"/>
+<path d="${bird(140,64)}${bird(182,46)}${bird(1250,70)}${bird(1292,50)}${bird(1330,80)}${bird(700,40)}" fill="none" stroke="#3a1230" stroke-width="2" stroke-linecap="round"/>
+<path d="M20 262L95 205L170 172L225 150L300 150L360 178L430 215L500 262Z" fill="#43163a"/>
+<path d="M110 232L150 200L225 158L300 158L350 188L420 232V262H110Z" fill="#561d45"/>
+<g fill="#5e2249"><rect x="236" y="82" width="62" height="76"/><rect x="224" y="104" width="16" height="54"/><rect x="294" y="104" width="16" height="54"/><rect x="136" y="188" width="30" height="42"/><rect x="380" y="198" width="30" height="40"/><path d="${cr(236,298,82,6,6)}${cr(224,240,104,4,5)}${cr(294,310,104,4,5)}${cr(136,166,188,5,5)}${cr(380,410,198,5,5)}"/></g>
+<path d="M259 158V134Q259 120 267 116Q275 120 275 134V158Z" fill="#2a0c27"/>
+<path d="M20 262L95 205L170 172L225 150L300 150L360 178L430 215L500 262" fill="none" stroke="#ff9a5a" stroke-opacity=".6" stroke-width="2"/>
+<path d="M530 262Q570 232 610 262Z" fill="#3a1630"/><rect x="571" y="226" width="38" height="14" fill="#f3e6d3"/><path d="M577 226Q578 208 590 205Q602 208 603 226Z" fill="#f7efe2"/><circle cx="590" cy="198" r="7" fill="#f7efe2"/>
+<g transform="translate(672 6) scale(.64)" stroke="#4a1235" stroke-width="2.5" stroke-linejoin="round"><path d="${ch}" fill="url(#gc)"/><path d="${ca}" fill="#5a1740" stroke="none"/></g>
+<g fill="#e8a38c"><rect x="1005" y="188" width="215" height="74"/><path d="${mm}"/>${minar(996)}${minar(1229)}</g><path d="${ma}" fill="#5a1f3a"/>
+<g fill="#f3c595"><rect x="1310" y="212" width="250" height="50"/><path d="${dm(1435,212,36,56)}${dm(1340,212,16,30)}${dm(1530,212,16,30)}"/><rect x="1433" y="144" width="4" height="14"/></g><path d="${pa}" fill="#6b2a44"/>
+<rect x="-800" y="262" width="3200" height="2600" fill="url(#wt)"/><path d="${rf}" stroke="#ffb27a" stroke-opacity=".38" stroke-width="2" fill="none"/>`;
+ const gy=tall?-300:-90;
+ st.innerHTML=`<svg class="itx" viewBox="0 0 ${VB[0]} ${VB[1]}"><defs><clipPath id="cp">${txt}</clipPath>
+<linearGradient id="sk" gradientUnits="userSpaceOnUse" x1="0" y1="${gy}" x2="0" y2="262"><stop offset="0" stop-color="#2a1565"/><stop offset=".4" stop-color="#8e2a78"/><stop offset=".7" stop-color="#e5527a"/><stop offset=".88" stop-color="#ff9a52"/><stop offset="1" stop-color="#ffd98a"/></linearGradient>
+<linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0c0"/><stop offset="1" stop-color="#f3b04e"/></linearGradient>
+<linearGradient id="wt" gradientUnits="userSpaceOnUse" x1="0" y1="262" x2="0" y2="${tall?575:330}"><stop offset="0" stop-color="#7a2c58"/><stop offset="1" stop-color="#1b0a28"/></linearGradient></defs>
+<g clip-path="url(#cp)"><g class="shg"><g transform="${tall?'translate(-420 339) scale(1.15)':'translate(0 0)'}">${scene}</g></g></g></svg><div class="itag">Golconda · Charminar · Hussain Sagar · Mecca Masjid</div>`}
 function introTL(){
+ buildIntro();
  const tl=gsap.timeline({defaults:{ease:'power2.inOut'}});
- tl.fromTo('.ol path',{strokeDashoffset:1},{strokeDashoffset:0,duration:1.8},0)
-  .fromTo('.itx',{'--a':'-8deg'},{'--a':'360deg',duration:1.7},.35)
-  .fromTo('.shg',{x:-60},{x:60,duration:3.8,ease:'none'},0)
-  .fromTo('.itag',{opacity:0,y:10},{opacity:1,y:0,duration:.7,ease:'power3.out'},1.6)
-  .to('.ih',{'--sh':1,duration:.6},2.9)
-  .to('.stg',{scale:1.16,duration:1.3,ease:'power4.inOut'},2.9)
-  .to('.ih.l',{xPercent:-50,duration:1.3,ease:'power4.inOut'},2.9)
-  .to('.ih.r',{xPercent:50,duration:1.3,ease:'power4.inOut'},2.9)
+ tl.set('.itx',{clipPath:'inset(100% 0% 0% 0%)',y:40,scale:1.06})
+  .fromTo('.shg',{x:34},{x:-34,duration:4.4,ease:'none'},0)
+  .to('.cu.l',{scaleX:.12,duration:2.6,ease:'power3.inOut'},.5)
+  .to('.cu.r',{scaleX:.12,duration:2.6,ease:'power3.inOut'},.58)
+  .to('.itx',{clipPath:'inset(0% 0% 0% 0%)',y:0,scale:1,duration:1.8,ease:'power3.out'},1.2)
+  .to('.itag',{opacity:1,duration:.9,ease:'power2.out'},2.3)
+  .to('.itx',{scale:1.4,duration:1.3,ease:'power3.in'},4.1)
+  .to('#intro',{opacity:0,duration:1,ease:'power2.inOut'},4.2)
   .set('#intro',{display:'none'});
  return tl}
 function start(){
@@ -281,7 +295,7 @@ function start(){
   });
  tick();
 }
-(document.fonts?document.fonts.ready:Promise.resolve()).then(start);
+(document.fonts?Promise.race([Promise.all([document.fonts.load('100px Anton'),document.fonts.ready]),new Promise(r=>setTimeout(r,2500))]):Promise.resolve()).catch(()=>{}).then(start);
 const navEl=$('nav'),onScroll=()=>navEl.classList.toggle('glass',scrollY>30);addEventListener('scroll',onScroll,{passive:true});onScroll();
 if(window.gsap&&window.ScrollTrigger&&!reduce){gsap.registerPlugin(ScrollTrigger);gsap.from('.ph h2,.ph p',{y:60,opacity:0,duration:1,stagger:.15,ease:'power4.out',scrollTrigger:{trigger:'.ph',start:'top 85%'}});gsap.from('.pc',{y:80,opacity:0,duration:1,stagger:.1,ease:'power4.out',scrollTrigger:{trigger:'.grid',start:'top 85%'}})}
 </script></body></html>
