@@ -220,13 +220,13 @@ function tick(){
  requestAnimationFrame(tick)
 }
 function buildIntro(){
- const st=$('#stg'),tall=innerWidth/innerHeight<.85,VB=tall?[1000,1000]:[1600,300];
+ const st=$('#stg'),tall=innerWidth/innerHeight<.85,VB=tall?[1000,1180]:[1600,430];
  $('#intro').classList.add(tall?'tall':'wide');
  let sd=5;const rnd=()=>(sd=sd*16807%2147483647)/2147483647;
  const cx=document.createElement('canvas').getContext('2d');cx.font='400 100px Anton,Impact,sans-serif';
  const cap=Math.max(.5,cx.measureText('H').actualBoundingBoxAscent/100)||.8;
- const rows=tall?[['HYD',292],['ERA',610],['BAD',928]]:[['HYDERABAD',278]],fs=(tall?285:262)/cap,tl=tall?950:1585,x0=(VB[0]-tl)/2;
- const txt=rows.map(r=>`<text x="${x0}" y="${r[1]}" textLength="${tl}" lengthAdjust="spacingAndGlyphs" style="font:400 ${fs.toFixed(1)}px Anton,Impact,sans-serif">${r[0]}</text>`).join('');
+ const rows=tall?[['HYD',292,285,950],['ERA',610,285,950],['BAD',928,285,950],['MEAT HUB',1110,100,780]]:[['HYDERABAD',278,262,1585],['MEAT HUB',405,100,820]];
+ const txt=rows.map(r=>{const f=r[2]/cap;return `<text x="${(VB[0]-r[3])/2}" y="${r[1]}" textLength="${r[3]}" lengthAdjust="spacingAndGlyphs" style="font:400 ${f.toFixed(1)}px Anton,Impact,sans-serif">${r[0]}</text>`}).join('');
  const cr=(x0,x1,y,w,h)=>{let d='';for(let x=x0;x+w<=x1;x+=w*2)d+=`M${x} ${y}h${w}v${-h}h${-w}z`;return d};
  const dm=(x,b,w,h)=>`M${x-w} ${b}C${x-w} ${b-h*.45} ${x-w*.45} ${b-h*.8} ${x} ${b-h}C${x+w*.45} ${b-h*.8} ${x+w} ${b-h*.45} ${x+w} ${b}Z `;
  const mn=c=>`M${c-16} 400V104H${c+16}V400Z M${c-25} 232h50v10h-50z M${c-25} 164h50v10h-50z M${c-23} 94h46v10h-46z M${c-18} 94C${c-27} 62 ${c-12} 48 ${c} 40C${c+12} 48 ${c+27} 62 ${c+18} 94Z M${c-3} 40V20h6v20z `;
@@ -256,7 +256,7 @@ function buildIntro(){
  st.innerHTML=`<svg class="itx" viewBox="0 0 ${VB[0]} ${VB[1]}"><defs><clipPath id="cp">${txt}</clipPath>
 <linearGradient id="sk" gradientUnits="userSpaceOnUse" x1="0" y1="${gy}" x2="0" y2="262"><stop offset="0" stop-color="#2a1565"/><stop offset=".4" stop-color="#8e2a78"/><stop offset=".7" stop-color="#e5527a"/><stop offset=".88" stop-color="#ff9a52"/><stop offset="1" stop-color="#ffd98a"/></linearGradient>
 <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0c0"/><stop offset="1" stop-color="#f3b04e"/></linearGradient>
-<linearGradient id="wt" gradientUnits="userSpaceOnUse" x1="0" y1="262" x2="0" y2="${tall?575:330}"><stop offset="0" stop-color="#7a2c58"/><stop offset="1" stop-color="#1b0a28"/></linearGradient></defs>
+<linearGradient id="wt" gradientUnits="userSpaceOnUse" x1="0" y1="262" x2="0" y2="${tall?740:440}"><stop offset="0" stop-color="#b8386a"/><stop offset="1" stop-color="#3a1233"/></linearGradient></defs>
 <g clip-path="url(#cp)"><g class="shg"><g transform="${tall?'translate(-420 339) scale(1.15)':'translate(0 0)'}">${scene}</g></g></g></svg><div class="itag">Golconda · Charminar · Hussain Sagar · Mecca Masjid</div>`}
 function introTL(){
  buildIntro();
