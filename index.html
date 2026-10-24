@@ -67,8 +67,18 @@ nav a:hover{opacity:1;color:var(--red)}
 .cur.big2 span{opacity:1}
 .cur{transition:width .3s,height .3s,margin .3s}
 @media(pointer:coarse){.cur,.xline,.yline{display:none}}
-.intro{position:fixed;inset:0;z-index:200;background:var(--black);display:grid;place-items:center;color:#fff;font-family:Sora;font-weight:800;letter-spacing:.12em;font-size:clamp(16px,3vw,32px);text-transform:uppercase}
-.intro b{color:var(--red)}
+/* intro: Charminar preloader */
+.intro{position:fixed;inset:0;z-index:200;pointer-events:none}
+.ih{position:absolute;inset:0;background:#0d0d0d;will-change:transform;overflow:hidden}
+.ih.l{clip-path:inset(0 50% 0 0)}.ih.r{clip-path:inset(0 0 0 50%)}
+.ih::after{content:'';position:absolute;top:0;bottom:0;width:10vw;opacity:var(--sh,0);pointer-events:none}
+.ih.l::after{right:50%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.5))}
+.ih.r::after{left:50%;background:linear-gradient(270deg,transparent,rgba(0,0,0,.5))}
+.stg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4vh;will-change:transform}
+.ol{position:absolute;left:50%;top:50%;width:min(92vh,98vw);height:auto;transform:translate(-50%,-50%);overflow:visible}
+.itx{--a:-8deg;position:relative;height:auto;overflow:visible;-webkit-mask-image:conic-gradient(from 0deg at 50% 50%,#000 var(--a),transparent calc(var(--a) + 8deg));mask-image:conic-gradient(from 0deg at 50% 50%,#000 var(--a),transparent calc(var(--a) + 8deg))}
+.wide .itx{width:min(94vw,1600px)}.tall .itx{width:min(92vw,76vh)}
+.itag{position:relative;font-family:'Space Grotesk',system-ui,sans-serif;font-weight:500;font-size:clamp(10px,1.3vw,16px);letter-spacing:.6em;text-transform:uppercase;color:rgba(255,255,255,.7);padding-left:.6em;opacity:0}
 .prods{background:#fff;padding:12vh 4vw 14vh}
 .ph{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
 .ph h2{font-size:clamp(44px,8vw,128px)}.ph h2 span{color:var(--red)}
@@ -112,7 +122,33 @@ footer:hover .fl{color:var(--dred)}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
-<div class="intro" id="intro"><span>Hyderabad <b>Meat</b> Hub</span></div>
+<div class="intro" id="intro"></div>
+<script>
+(function(){
+const el=document.getElementById('intro'),tall=innerWidth/innerHeight<.85,VB=tall?[1000,1000]:[1600,300];
+el.className='intro '+(tall?'tall':'wide');
+let s=11;const rnd=()=>(s=s*16807%2147483647)/2147483647;
+const hs=[262,282,305,330,350,12,28,44,196,214];
+let SH='';
+for(let i=0,n=tall?230:170;i<n;i++){
+ const x=rnd()*(VB[0]+160)-80,y=rnd()*(VB[1]+80)-40,r=26+rnd()*(tall?110:70),k=3+(rnd()>.5?1:0),a0=rnd()*6.28,
+ dark=Math.abs(x-VB[0]/2)<(tall?330:240),h=hs[(rnd()*hs.length)|0],l=dark?20+rnd()*20:44+rnd()*18,sa=82+rnd()*16;
+ let p='';for(let j=0;j<k;j++){const a=a0+j*6.283/k+rnd()*.7,rr=r*(.6+rnd()*.5);p+=(j?'L':'M')+(x+Math.cos(a)*rr).toFixed(0)+' '+(y+Math.sin(a)*rr).toFixed(0)}
+ SH+='<path d="'+p+'Z" fill="hsl('+h+' '+sa+'% '+l+'%)" opacity="'+(.82+rnd()*.18).toFixed(2)+'"/>'}
+/* Charminar in a 400x400 box */
+const mn=c=>`M${c-16} 400V104H${c+16}V400Z M${c-25} 232h50v10h-50z M${c-25} 164h50v10h-50z M${c-23} 94h46v10h-46z M${c-18} 94C${c-27} 62 ${c-12} 48 ${c} 40C${c+12} 48 ${c+27} 62 ${c+18} 94Z M${c-3} 40V20h6v20z M${c-5} 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0Z `;
+const dm=(x,b,w,h)=>`M${x-w} ${b}C${x-w} ${b-h*.45} ${x-w*.45} ${b-h*.8} ${x} ${b-h}C${x+w*.45} ${b-h*.8} ${x+w} ${b-h*.45} ${x+w} ${b}Z `;
+let body='M56 400V190H344V400Z M70 190V132H330V190Z '+mn(48)+mn(352)+dm(200,132,22,52)+'M197 80V62h6v18z '+dm(128,132,15,30)+dm(272,132,15,30);
+for(let x=86;x<=314;x+=24)body+=`M${x-5} 132L${x} 119L${x+5} 132Z `;
+let ar='M170 400V292Q170 242 200 222Q230 242 230 292V400Z M102 400V318Q102 282 121 266Q140 282 140 318V400Z M260 400V318Q260 282 279 266Q298 282 298 318V400Z ';
+[110,155,200,245,290].forEach(c=>ar+=`M${c-12} 188V162Q${c-12} 147 ${c} 140Q${c+12} 147 ${c+12} 162V188Z `);
+const T=tall?'translate(200 330) scale(1.5)':'translate(656 -3) scale(.72)';
+const rows=tall?[['HYD',290],['ERA',600],['BAD',910]]:[['HYDERABAD',262]],fs=tall?380:360,tl=tall?940:1585,x0=(VB[0]-tl)/2;
+const txt=rows.map(r=>`<text x="${x0}" y="${r[1]}" textLength="${tl}" lengthAdjust="spacingAndGlyphs" style="font:800 ${fs}px Sora,'Space Grotesk',Impact,sans-serif">${r[0]}</text>`).join('');
+const art=k=>`<div class="stg"><svg class="ol" viewBox="0 0 400 400"><path d="${body}${ar}" pathLength="1" fill="none" stroke="#f5c04a" stroke-opacity=".55" stroke-width="1.3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:1"/></svg><svg class="itx" viewBox="0 0 ${VB[0]} ${VB[1]}"><defs><clipPath id="cp${k}">${txt}</clipPath><linearGradient id="bg${k}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2b2fd8"/><stop offset=".22" stop-color="#8e24aa"/><stop offset=".42" stop-color="#3d0f63"/><stop offset=".58" stop-color="#3d0f63"/><stop offset=".78" stop-color="#e53935"/><stop offset="1" stop-color="#ff9800"/></linearGradient><linearGradient id="gc${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset="1" stop-color="#f2a93b"/></linearGradient></defs><g clip-path="url(#cp${k})"><rect x="-100" width="${VB[0]+200}" height="${VB[1]}" fill="url(#bg${k})"/><g class="shg">${SH}</g><g transform="${T}" stroke="#2a0740" stroke-width="2" stroke-linejoin="round"><path d="${body}" fill="url(#gc${k})"/><path d="${ar}" fill="#4a1259" stroke="none"/></g></g></svg><div class="itag">City of Pearls</div></div>`;
+el.innerHTML='<div class="ih l">'+art('L')+'</div><div class="ih r">'+art('R')+'</div>';
+})();
+</script>
 <header class="hero" id="hero">
  <div class="spot"></div>
  <nav>
@@ -209,6 +245,18 @@ function tick(){
  const cu=$('#cur');px=lerp(px,cx,.2);py=lerp(py,cy,.2);cu.style.transform=`translate(${px}px,${py}px)`;
  requestAnimationFrame(tick)
 }
+function introTL(){
+ const tl=gsap.timeline({defaults:{ease:'power2.inOut'}});
+ tl.fromTo('.ol path',{strokeDashoffset:1},{strokeDashoffset:0,duration:1.8},0)
+  .fromTo('.itx',{'--a':'-8deg'},{'--a':'360deg',duration:1.7},.35)
+  .fromTo('.shg',{x:-60},{x:60,duration:3.8,ease:'none'},0)
+  .fromTo('.itag',{opacity:0,y:10},{opacity:1,y:0,duration:.7,ease:'power3.out'},1.6)
+  .to('.ih',{'--sh':1,duration:.6},2.9)
+  .to('.stg',{scale:1.16,duration:1.3,ease:'power4.inOut'},2.9)
+  .to('.ih.l',{xPercent:-50,duration:1.3,ease:'power4.inOut'},2.9)
+  .to('.ih.r',{xPercent:50,duration:1.3,ease:'power4.inOut'},2.9)
+  .set('#intro',{display:'none'});
+ return tl}
 function start(){
  if(!window.gsap||reduce){$('#intro').remove();ready=!!window.gsap;gsap&&measure();tick();return}
  gsap.registerPlugin(ScrollTrigger);
@@ -217,12 +265,8 @@ function start(){
  gsap.set('#imgwrap',{opacity:0,scale:1.3,yPercent:8});
  gsap.set('.nav,nav',{opacity:0,y:-20});
  const tl=gsap.timeline({defaults:{ease:'power4.out'}});
- tl.from('#intro span',{opacity:0,letterSpacing:'.4em',duration:.7})
-  .to('#line',{scaleX:1,duration:.7,ease:'power3.inOut'},'-=.1')
-  .set('#intro',{background:'transparent'}).to('#intro span',{opacity:0,duration:.2},'<')
-  .to('#line',{scaleX:0,transformOrigin:'right',duration:.6,ease:'power3.inOut'})
-  .set('#intro',{display:'none'})
-  .fromTo('#left',{scale:1.18},{scale:1,duration:1.6},'<')
+ tl.add(introTL()).addLabel('go','-=1')
+  .fromTo('#left',{scale:1.18},{scale:1,duration:1.6},'go')
   .fromTo('#right',{scale:1.12},{scale:1,duration:1.6},'<')
   .to('.left .ch',{yPercent:0,duration:1.1,stagger:.05},'<')
   .to('.right .ch',{yPercent:0,duration:1.1,stagger:.04},'<.2')
